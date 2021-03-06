@@ -5,24 +5,24 @@ import flask_cors
 import json
 from threading import Thread
 from time import sleep
-from replit import db as database
+from replit import db
 app = Flask(__name__)
 
-db = {'aaaaa': 'bbbbb'}
+flask_cors.CORS(app)
 
-
-def writetodb():
-    while True:
-        database = db
-        sleep(1)
-        
-            
-
-Thread(target=writetodb).start()
 
 @app.route('/')
 def home():
     return ''
+
+
+@app.route('/exists/<token>')
+def exists(token):
+    if token in db.keys():
+        return 'true'
+    else:
+        return 'false'
+
 
 @app.route('/grabdata/<token>')
 def grabdata(token):
@@ -32,4 +32,4 @@ def grabdata(token):
 def updatedata(item, token, amount):
     pass
 
-app.run('0.0.0.0')
+app.run('127.0.0.1', port='8080')
