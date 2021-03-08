@@ -1,35 +1,25 @@
-from flask import Flask
-import string
-import random
-import flask_cors
-import json
-from threading import Thread
-from time import sleep
+import tornado.ioloop
+from tornado.web import RequestHandler, Application, url
 from replit import db
-app = Flask(__name__)
 
-flask_cors.CORS(app)
+class MainHandler(RequestHandler):
+    def get(self):
+        self.write('ur mom')
+        self.write('<br>')
+        self.write('<a href="https://apple.com">xdxd</a>')
+
+class NiceHandler(RequestHandler):
+    def get(self):
+        self.write('nice')
+
+def main():
+    return Application([
+        url(r'/', MainHandler),
+        url(r'/nice', NiceHandler)
+    ])
 
 
-@app.route('/')
-def home():
-    return ''
-
-
-@app.route('/exists/<token>')
-def exists(token):
-    if token in db.keys():
-        return 'true'
-    else:
-        return 'false'
-
-
-@app.route('/grabdata/<token>')
-def grabdata(token):
-    pass
-
-@app.route('/updateitem/<item>/<token>/<amount>')
-def updatedata(item, token, amount):
-    pass
-
-app.run('127.0.0.1', port='8080')
+if __name__ == '__main__':
+    app = main()
+    app.listen(8888)
+    tornado.ioloop.IOLoop.current().start()
