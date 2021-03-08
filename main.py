@@ -3,23 +3,28 @@ from tornado.web import RequestHandler, Application, url
 from replit import db
 
 
-class MainHandler(RequestHandler):
+class HomeHandler(RequestHandler):
     def get(self):
-        self.write('ur mom')
-        self.write('<br>')
-        self.write('<a href="https://apple.com">xdxd</a>')
+        self.write('pranked')
 
-class NiceHandler(RequestHandler):
-    def get(self):
-        self.write('nice')
+class UpdateHandler(RequestHandler):
+    def get(self, token, item, amount):
+        if token in db.keys():
+            if item in db[token].keys():
+                item += amount
+                self.write('success')
+            else:
+                self.write('err: item doesn\'t exist')
+                return
+        else:
+            self.write('err: token doesn\'t exist.')
+            return
 
 def main():
     return Application([
-        url(r'/', MainHandler),
-        url(r'/nice', NiceHandler)
+        url(r'/', HomeHandler),
+        url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler))
     ])
-
-
 if __name__ == '__main__':
     app = main()
     app.listen(8888)
