@@ -2,6 +2,7 @@ import tornado.ioloop
 from tornado.web import RequestHandler, Application, url
 from replit import db
 
+
 class MainHandler(RequestHandler):
     def get(self):
         self.write('ur mom')
