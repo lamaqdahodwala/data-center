@@ -32,6 +32,26 @@ class UpdateHandler(RequestHandler):
             self.set_status(404)
             return
 
+class SetHandler(RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+    
+    def get(self, token, item, amount):
+        if token in db.keys():
+            if item in db[token].keys():
+                item = amount
+                self.write('success')
+                return
+            else:
+                self.write('err: item doesnt exist')
+                self.set_status(404)
+                return
+        else:
+            self..write('err: token doesnt exist')
+            self.set_status(404)
+            return
+
+
 class GenerationHandler(RequestHandler):
     def set_default_headers(self):
         self.set_header('Access-Control-Allow-Origin', '*')
@@ -50,7 +70,7 @@ class GenerationHandler(RequestHandler):
         else:
             self.write(tkn)
             with open('stock.json') as f:
-                stock = json.load(f)
+                stock = dict(json.load(f))
             db[tkn] = stock
         
 
@@ -59,8 +79,8 @@ def main():
     return Application([
         url(r'/', HomeHandler),
         url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler),
-        url(r'/generate', GenerationHandler)
-
+        url(r'/generate', GenerationHandler),
+        url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler)
     ])
 if __name__ == '__main__':
     app = main()
