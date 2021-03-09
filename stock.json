@@ -1,0 +1,27 @@
+{
+
+    "points": 0,
+    "clickpow": 1,
+    "rbonus": 1,
+    "rprice": 500000,
+
+
+    "metronomes": 0,
+    "bands": 0,
+    "orchestras": 0,
+    "classicals": 0,
+    "concerts": 0,
+    "guitars": 0,
+    "earthquakes": 0,
+
+
+    "metprice": 15,
+    "bandprice": 100,
+    "orchestraprice": 250,
+    "classicalprice": 1000,
+    "concertprice": 10000,
+    "guitarprice": 50000,
+    "earthquakesprice": 100000
+    
+
+}

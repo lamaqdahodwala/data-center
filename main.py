@@ -3,6 +3,7 @@ from tornado.web import RequestHandler, Application, url
 import string
 import random
 from replit import db
+import json
 
 
 
@@ -41,9 +42,12 @@ class GenerationHandler(RequestHandler):
         for i in range(50):
             tkn += random.choice(letters)
         if self.exists(tkn):
-            get()
+            self.get()
         else:
             self.write(tkn)
+            with open('stock.json') as f:
+                stock = json.load(f)
+            db[tkn] = stock
         
 
 
