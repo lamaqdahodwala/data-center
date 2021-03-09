@@ -13,6 +13,7 @@ class HomeHandler(RequestHandler):
     def get(self):
         self.write('pranked')
 
+
 class UpdateHandler(RequestHandler):
     def set_default_headers(self):
         self.set_header('Access-Control-Allow-Origin', '*')
@@ -21,11 +22,14 @@ class UpdateHandler(RequestHandler):
             if item in db[token].keys():
                 item += amount
                 self.write('success')
+                self.set_status(200)
             else:
                 self.write('err: item doesn\'t exist')
+                self.set_status(404)
                 return
         else:
             self.write('err: token doesn\'t exist.')
+            self.set_status(404)
             return
 
 class GenerationHandler(RequestHandler):
@@ -51,7 +55,6 @@ class GenerationHandler(RequestHandler):
         
 
 
-        
 def main():
     return Application([
         url(r'/', HomeHandler),
