@@ -86,7 +86,7 @@ def main():
         url(r'/', HomeHandler),
         url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler),
         url(r'/generate', GenerationHandler),
-        url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler)
+        url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler),
         url(r'/grabdata/(.+)', GrabHandler)
     ])
 if __name__ == '__main__':
