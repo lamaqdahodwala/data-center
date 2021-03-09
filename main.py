@@ -47,7 +47,7 @@ class SetHandler(RequestHandler):
                 self.set_status(404)
                 return
         else:
-            self..write('err: token doesnt exist')
+            self.write('err: token doesnt exist')
             self.set_status(404)
             return
 
