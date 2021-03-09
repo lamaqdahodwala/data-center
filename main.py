@@ -3,11 +3,16 @@ from tornado.web import RequestHandler, Application, url
 from replit import db
 
 
+
 class HomeHandler(RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
     def get(self):
         self.write('pranked')
 
 class UpdateHandler(RequestHandler):
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
     def get(self, token, item, amount):
         if token in db.keys():
             if item in db[token].keys():
@@ -23,7 +28,8 @@ class UpdateHandler(RequestHandler):
 def main():
     return Application([
         url(r'/', HomeHandler),
-        url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler))
+        url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler)
+
     ])
 if __name__ == '__main__':
     app = main()
