@@ -13,6 +13,19 @@ class HomeHandler(RequestHandler):
     def get(self):
         self.write('pranked')
 
+class GrabItemHanlder(RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", '*')
+    def get(self, token, item):
+        if token in db.keys():
+            if item in db[token].keys():
+                self.write(db[token][item])
+                return
+            else:
+                self.write('err: item doesnt exist')
+        else:
+            self.write('err: token doesnt exist')
+            self.set_status(404)
 
 class UpdateHandler(RequestHandler):
     def set_default_headers(self):
@@ -86,8 +99,9 @@ def main():
         url(r'/', HomeHandler),
         url(r'/updateitem/(.+)/(.+)/(\d+)', UpdateHandler),
         url(r'/generate', GenerationHandler),
-        url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler)
-        url(r'/grabdata/(.+)', GrabHandler)
+        url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler),
+        url(r'/grabdata/(.+)', GrabHandler),
+        url(r'/getitem/(.+)/(.+)', GrabItemHanlder)
     ])
 if __name__ == '__main__':
     app = main()
