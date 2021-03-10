@@ -122,7 +122,8 @@ def main():
 		url(r'/generate', GenerationHandler),
 		url(r'/setitem/(.+)/(.+)/(\d+)', SetHandler),
 		url(r'/grabdata/(.+)', GrabHandler),
-		url(r'/getitem/(.+)/(.+)', GrabItemHanlder)
+		url(r'/getitem/(.+)/(.+)', GrabItemHanlder),
+		url(r'/rebirth/(.+)', RebirthHandler)
 	])
 if __name__ == '__main__':
 	app = main()
