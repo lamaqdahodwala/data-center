@@ -97,6 +97,24 @@ class GrabHandler(RequestHandler):
         else:
             self.write('err: token doesnt exist')
             self.set_status(404)
+
+class RebirthHandler(RequestHandler):
+	def set_default_headers(self):
+		self.set_header("Access-Control-Allow-Origin", '*')
+	
+	def get(self, token):
+		if token in db.keys():
+			data = json.load(open('stock.json', 'r'))
+			userdata = db[token]
+			oldrprice = userdata['rprice']
+			userdata = data
+			userdata['rprice'] = (oldrprice*1.5)
+		else:
+			self.write('err: token doesnt exist')
+			self.set_status(404)
+		
+
+
 def main():
 	return Application([
 		url(r'/', HomeHandler),
