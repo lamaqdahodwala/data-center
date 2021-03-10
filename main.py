@@ -89,12 +89,14 @@ class GenerationHandler(RequestHandler):
 		
 
 class GrabHandler(RequestHandler):
-	def get(self, token):
-		if token in db.keys():
-			self.write(db[token])
-		else:
-			self.write('err: token doesnt exist')
-			self.set_status(404)
+    def set_default_headers(self):
+        self.set_header('Access-Control-Allow-Origin', '*')
+    def get(self, token):
+        if token in db.keys():
+            self.write(db[token])
+        else:
+            self.write('err: token doesnt exist')
+            self.set_status(404)
 def main():
 	return Application([
 		url(r'/', HomeHandler),
