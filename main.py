@@ -125,7 +125,6 @@ def main():
 		url(r'/getitem/(.+)/(.+)', GrabItemHanlder),
 		url(r'/rebirth/(.+)', RebirthHandler)
 	])
-if __name__ == '__main__':
-	app = main()
-	app.listen(8888)
-	tornado.ioloop.IOLoop.current().start()
+app = main()
+app.listen(8888)
+tornado.ioloop.IOLoop.current().start()
